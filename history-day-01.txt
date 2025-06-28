@@ -1,0 +1,293 @@
+    1  sudo reboot
+    2  oc login -u admin -p redhatocp https://api.ocp4.example.com:6443 
+    3  uptime 
+    4  oc login -u admin -p redhatocp https://api.ocp4.example.com:6443 
+    5   lab start network-policy
+    6  oc project  network-policy
+    7  oc new-project network-policy
+    8  oc project -q
+    9  oc get all
+   10  oc new-app --name hello --image registry.ocp4.example.com:8443/redhattraining/hello-world-nginx:v1.0
+   11  oc new-app --name test --image registry.ocp4.example.com:8443/redhattraining/hello-world-nginx:v1.0
+   12  oc get pods
+   13  oc get svc 
+   14  oc get route 
+   15  oc get pods -o wide 
+   16  oc get svc -o wide 
+   17  oc get deployment -o wide 
+   18  oc expose service hello 
+   19  oc get route 
+   20  oc get pods -o wide 
+   21  oc get svc -o wide 
+   22  oc get route 
+   23  oc project -q
+   24  oc new-
+   25  oc new-project different-namespace
+   26  oc project -q 
+   27  oc get all
+   28  oc new-app --name sample --image registry.ocp4.example.com:8443/redhattraining/hello-world-nginx:v1.0
+   29  oc get pods
+   30  oc get svc 
+   31  oc rsh sample-5c4c7bf8ff-rx7wh 
+   32  cd DO280/
+   33  cd labs/
+   34  pwd
+   35  ll
+   36  cd network-policy/
+   37  lll
+   38  ll
+   39  ./display-project-info.sh 
+   40  vim display-project-info.sh 
+   41  ./display-project-info.sh 
+   42  oc project -q
+   43  oc rsh sample-5c4c7bf8ff-rx7wh 
+   44  ./display-project-info.sh 
+   45  oc project -q
+   46  oc project network-policy
+   47  oc get pods 
+   48  ./display-project-info.sh 
+   49  oc rsh test-54d78b7-b278t 
+   50  ll
+   51  pwd
+   52  cd ~/DO280/solutions/network-policy/
+   53  ll
+   54  vim deny-all.yaml 
+   55  vim /home/student/DO280/labs/network-policy/deny-all.yaml 
+   56  vim deny-all.yaml 
+   57  oc project -q
+   58  oc get networkpolicies.networking.k8s.io 
+   59  oc apply -f deny-all.yaml 
+   60  oc get networkpolicies.networking.k8s.io 
+   61  oc project -q
+   62  oc get pods 
+   63  ./d
+   64  ~/DO280/labs/network-policy/display-project-info.sh 
+   65  oc rsh test-54d78b7-b278t 
+   66  ~/DO280/labs/network-policy/display-project-info.sh 
+   67  oc project -q
+   68  oc project network-policy 
+   69  oc get pods 
+   70  ~/DO280/labs/network-policy/display-project-info.sh 
+   71  oc rsh test-54d78b7-b278t 
+   72  oc get np
+   73  oc get networkpolicy 
+   74  ll
+   75  vim allow-specific.yaml 
+   76  oc project -q
+   77  oc apply -f allow-specific.yaml 
+   78  vim allow-specific.yaml 
+   79  oc get ns different-namespace --show-labels 
+   80  vim allow-specific.yaml 
+   81  oc label ns different-namespace network=different-namespace
+   82  oc get ns different-namespace --show-labels | grep network 
+   83  oc get networkpolicies.networking.k8s.io 
+   84  ~/DO280/labs/network-policy/display-project-info.sh 
+   85  oc project -
+   86  ~/DO280/labs/network-policy/display-project-info.sh 
+   87  oc project -q
+   88  oc rsh test-54d78b7-b278t 
+   89  oc project different-namespace 
+   90  oc project -q
+   91  ~/DO280/labs/network-policy/display-project-info.sh 
+   92  oc project -q
+   93  oc rsh sample-5c4c7bf8ff-rx7wh 
+   94  ~/DO280/labs/network-policy/display-project-info.sh 
+   95  ll
+   96  cp -rpv allow-specific.yaml allow-specific2.yaml 
+   97  vim allow-specific2.yaml 
+   98  oc get ns different-namespace --show-labels | grep test-namespac
+   99  oc get ns network-policy --show-labels | grep test-namespac
+  100  oc get ns network-policy --show-labels 
+  101  oc create -f allow-specific2.yaml 
+  102  oc get ns network-policy --show-labels 
+  103  #oc label ns networkpolicy network=different-namespace
+  104  vim allow-specific2.yaml 
+  105  oc label ns network-policy network=test-namespace
+  106  oc get pods
+  107  oc project network-policy 
+  108  ~/DO280/labs/network-policy/display-project-info.sh 
+  109  oc rsh test-54d78b7-b278t 
+  110  oc get networkpolicy 
+  111  ll
+  112  oc apply -f allow-specific2.yaml 
+  113  oc get networkpolicy 
+  114  oc rsh test-54d78b7-b278t 
+  115  ~/DO280/labs/network-policy/display-project-info.sh 
+  116  oc rsh test-54d78b7-b278t 
+  117  ll
+  118  vim -O deny-all.yaml allow-specific.yaml allow-specific2.yaml 
+  119  ll
+  120  oc project -q 
+  121  oc get nodes
+  122  cp -rpv allow-specific2.yaml allow-specific-hello-test.yaml
+  123  vim allow-specific-hello-test.yaml
+  124  oc apply -f allow-specific-hello-test.yaml 
+  125  oc get networkpolicies.networking.k8s.io 
+  126  oc get pods
+  127  oc rsh hello-7c5959664f-nmj4z 
+  128  ~/DO280/labs/network-policy/display-project-info.sh 
+  129  oc rsh hello-7c5959664f-nmj4z 
+  130  oc get networkpolicies.networking.k8s.io 
+  131  oc get namespaces --show-labels 
+  132  oc get namespaces network-policy --show-labels 
+  133  ls
+  134  vim allow-specific-hello-test.yaml
+  135  oc label ns network-policy network=network-policy-anyname
+  136  oc get networkpolicies.networking.k8s.io 
+  137  oc edit networkpolicies.networking.k8s.io allow-specific-from-test-to-hello 
+  138  oc label ns network-policy network2=network-policy-anyname
+  139  ~/DO280/labs/network-policy/display-project-info.sh 
+  140  oc rsh hello-7c5959664f-nmj4z 
+  141  cd
+  142   lab start network-svccerts
+  143   oc project network-svccerts
+  144  oc get pdos 
+  145  oc get pds 
+  146  oc get pods
+  147  oc logs server-854655dd57-r7shl
+  148  oc get secret 
+  149  oc annotate service server service.beta.openshift.io/serving-cert-secret-name=server-secret
+  150  oc get secret 
+  151  oc extract secret/server-secret --to=. 
+  152  ll
+  153  cd DO280/solutions/network-svccerts/
+  154  ll
+  155  vim server-secret.yaml 
+  156  oc get pods
+  157  oc apply -f server-secret.yaml 
+  158  vim server-secret.yaml 
+  159  oc apply -f server-secret.yaml 
+  160  vim server-secret.yaml 
+  161  oc patch deployment server --patch-file server-secret.yaml 
+  162  oc get pods
+  163  oc rsh server-f9b4bb6fb-npbzt 
+  164  oc get pods 
+  165  oc rsh no-ca-bundle 
+  166  ll
+  167  vim client.yaml 
+  168  oc apply -f client.yaml 
+  169  pwd
+  170  ll
+  171  vim client.yaml 
+  172  oc apply -f client.yaml 
+  173  oc get pods
+  174  oc get cm
+  175   oc create configmap ca-bundle
+  176  oc annotate configmap ca-bundle   service.beta.openshift.io/inject-cabundle=true
+  177  oc get pods
+  178  oc rsh client-69f5684fd8-4tsk8 
+  179  oc login -u admin -p redhatocp https://api.ocp4.example.com:6443 
+  180  oc whoami 
+  181  oc get nodes 
+  182  oc version 
+  183  oc get clusterversion -o wide 
+  184  ssh root@utility 
+  185  ssh root@utility  
+  186  oc whoami 
+  187  oc login -u admin -p redhatocp https://api.ocp4.example.com:6443 
+  188  nslookup api.ocp4.example.com
+  189  ssh root@api.ocp4.example.com
+  190  oc get nodes 
+  191  oc get pdos -n openshift-kube-apiserver
+  192  oc get po -n openshift-kube-apiserver
+  193  oc get po -n openshift-kube-apiserver -o wide 
+  194  oc get po -n openshift-kube-apiserver -o wide | grep master01
+  195  oc get po -n openshift-kube-apiserver -o wide | grep kube-apiserver-master01
+  196  oc login -u admin -p redhatocp https://api.ocp4.example.com:6443 
+  197  nslookup api.ocp4.example.com
+  198  oc whoami -t 
+  199  oc whoami --show-console 
+  200  oc login --token=sha256~H2kpz_uOHKa5Rt3bRVOFfjSv2M-pTb1sNXRDk85VM9M --server=https://api.ocp4.example.com:6443
+  201  oc whoami -t 
+  202  oc whoami -t --loglevel 7
+  203  cat /home/student/.kube/config
+  204  oc logout 
+  205  cat /home/student/.kube/config
+  206  oc whoami 
+  207  oc login -u admin -p redhatocp https://api.ocp4.example.com:6443 
+  208  cat /home/student/.kube/config
+  209  oc whoami -t
+  210  oc login --token=sha256~H2kpz_uOHKa5Rt3bRVOFfjSv2M-pTb1sNXRDk85VM9M --server=https://api.ocp4.example.com:6443
+  211  ssh root@api.ocp4.example.com 
+  212  oc get pods -n openshift-authentication
+  213  oc get oauth/cluster 
+  214  oc get pods -n openshift-authentication-operator 
+  215  oc projects | grep operator 
+  216  oc get pods -n openshift-authentication
+  217  oc get pods -n openshift-apiserver
+  218  oc get pods -n openshift-kube-apiserver | grep kube-apiserver-master01 
+  219  oc get pods -n openshift-etcd 
+  220  oc get pods -n openshift-controller-managaer 
+  221  oc get pods -n openshift-controller-manager
+  222  oc get pods -n openshift-scheduler 
+  223* oc projects | grep schedu
+  224  oc get pods -n openshift-kube-scheduler
+  225  mkdir work 
+  226  cd work/
+  227  pwd
+  228  ll
+  229  pwd
+  230  ll
+  231  htpasswd --help 
+  232  htpasswd -c -b -B htpasswd-sre-secret user1 redhat123 
+  233  ll
+  234  cat htpasswd-sre-secret 
+  235  htpasswd  -b -B htpasswd-sre-secret user2 redhat123 
+  236  cat htpasswd-sre-secret 
+  237  htpasswd  -b  htpasswd-sre-secret user3 redhat123 
+  238  cat htpasswd-sre-secret 
+  239  htpasswd  htpasswd-sre-secret user4 redhat123 
+  240  htpasswd  htpasswd-sre-secret user4  
+  241  ll
+  242  cat htpasswd-sre-secret 
+  243  htpasswd  -b -B htpasswd-sre-secret user5 redhat123 
+  244  cat htpasswd-sre-secret 
+  245  oc whoami 
+  246  oc create secret generic sre-secret --from-file htpasswd=htpasswd-sre-secret -n openshift-config 
+  247  oc get secret sre-secret -n openshift-config 
+  248  oc get secret sre-secret -n openshift-config -o yaml 
+  249  base64 -Ow htpasswd-sre-secret 
+  250  base64 -0w htpasswd-sre-secret 
+  251  base64 -w0 htpasswd-sre-secret 
+  252  oc get secret sre-secret -n openshift-config 
+  253  oc get oauth/cluster 
+  254  oc get oauth/cluster  -o yaml > oauth-anyname.yaml 
+  255  vim oauth-anyname.yaml 
+  256  oc get pods -n openshift-authentication
+  257  oc apply -f oauth-anyname.yaml 
+  258  watch oc get pods -n openshift-authentication
+  259  oc login -u user1 -p redhat123 https://api.ocp4.example.com:6443 
+  260  oc whoami 
+  261  oc get nodes
+  262  for x in {1..5}; do oc login -u user$x -p redhat123 https://api.ocp4.example.com:6443b; done
+  263  for x in {1..5}; do oc login -u user$x -p redhat123 https://api.ocp4.example.com:6443; done
+  264  oc login -u admin -p redhatocp https://api.ocp4.example.com:6443 
+  265  oc get users
+  266  ll
+  267  touch htpasswd-app-secret 
+  268  for x in {11..50}; do htpasswd -B -b htpasswd-app-secret user$x redhat; done
+  269  ll
+  270  cat htpasswd-app-secret
+  271  oc create secret generic app-secret --from-file htpasswd=htpasswd-app-secret -n openshift-config 
+  272  vim oauth-anyname.yaml 
+  273  oc apply -f oauth-anyname.yaml 
+  274  oc get oauth/cluster  -o yaml > oauth-anyname.yaml 
+  275  vim oauth-anyname.yaml 
+  276  oc apply -f oauth-anyname.yaml 
+  277  oc login -u user1 -p redhat https://api.ocp4.example.com:6443 
+  278  oc get pods -n openshift-authentication
+  279  oc apply -f oauth-anyname.yaml --dry-run=client --validate 
+  280  vim oauth-anyname.yaml 
+  281  oc apply -f oauth-anyname.yaml --dry-run=client --validate 
+  282  vim oauth-anyname.yaml 
+  283  oc apply -f oauth-anyname.yaml --dry-run=client --validate 
+  284  oc get pods -n openshift-authentication
+  285  oc login -u user1 -p redhat https://api.ocp4.example.com:6443 
+  286  oc get pods -n openshift-authentication
+  287  history  | grep login 
+  288  for x in {1..5}; do oc login -u user$x -p redhat123 https://api.ocp4.example.com:6443; done
+  289  for x in {11..40}; do oc login -u user$x -p redhat123 https://api.ocp4.example.com:6443; done
+  290  for x in {11..40}; do oc login -u user$x -p redhat https://api.ocp4.example.com:6443; done
+  291  ll
+  292  git clone https://github.com/cprakash2118/28June25-DO280
+  293  history > 28June25-DO280/history-day-01.txt 
