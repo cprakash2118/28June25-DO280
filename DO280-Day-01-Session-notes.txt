@@ -1,0 +1,144 @@
+Point-1# 
+- Product Name - "Red Hat OpenShift".
+- Hybrid Cloud:-
+
+1) Cloud services editions:-
+ - Red Hat OpenShift Service on AWS     [Platform=AWS;POC=Amazon]
+ - Microsoft Azure Red Hat OpenShift    [Platform=MS-Azure;POC=MS-Azure]
+ - Red Hat OpenShift Dedicated          [Platform=AWS/GCP;POC=RedHat]
+ - Red Hat OpenShift on IBM Cloud       [Platform=IBM;POC=IBM]
+ 
+2) Self-managed editions
+ - Red Hat OpenShift Kubernetes Engine        [Basic-OKE]
+ - Red Hat OpenShift Container Platform       [Standard - RHOCPv4.x]
+ - Red Hat OpenShift Platform Plus            [Add-On Services]
+ - Red Hat OpenShift Virtualization Engine    [RH Virtualization]
+
+3) Services & add-ons
+ - Red Hat OpenShift AI
+ - Red Hat OpenShift Lightspeed
+ - Red Hat OpenShift Virtualization
+ - Red Hat Quay
+ - Red Hat Advanced Cluster Management for Kubernetes
+ - Red Hat Advanced Cluster Security for Kubernetes
+ - Red Hat Advanced Developer Suite
+ - Red Hat OpenShift Consulting
+ 
+Point-2# Classroom Setup:-
+- TOC 
+- Describe classroom Setup (w.r.t users/Servers/domain).
+  2.1-) Users details
+        w.r.t VMs/Servers:-
+        - student/student [sudo access]
+        - root/redhat 	  
+        
+		w.r.t OCP cluster:-
+		admin/redhatocp [LDAP account ; and this account is "cluster-admin"]
+		developer/developer [member account for OCP cluster]
+		
+		kubeadmin/kubeadmin-password (file) - cluster-admin 
+		
+		cat kubeadmin-password (file created at the time of installation).
+		As per LAB (all OCP labs) - ssh root@utility ; cd /home/lab/ocp4/auth ; ls [kubeconfig kubeadmin-password]
+		
+		
+		userName?
+		Password?
+		API url ?
+		clusterName - ocp4 
+		BaseDomain  - example.com 
+		API URL = https://api.clusterName.baseDomain:6443 
+		        = https://api.ocp4.example.com:6443
+				
+		From Workstation.lab.example.com node (logged in as student/student).
+		$ oc login -u kubeadmin -p alasjdlaksjd https://api.ocp4.example.com:6443		
+				
+		
+		$ ssh root@utility 
+		# cd /home/lab/ocp4/auth
+		# ls 
+		kubeadmin-password  kubeconfig
+		
+		****************************************
+		FYI- These file automatically generated 
+		# cd /home/lab/ocp4
+		# mkdir work 
+		# cp -rpv openshift-install work 
+		# cp -rpv install-config.yaml-bkp work 
+		# cd work ; mv install-config.yaml-bkp install-config.yaml 
+		# vim install-config.yaml 
+		BaseDomain: example.com 
+		ClusterName: ocp4 
+		# ./openshift-install create manifest --dir .
+		Do required changes.
+		# ./openshift-install create ignition-config --dir .
+		# tree 
+		master.ign worker.ign bootstrap.ign matadata.json auth/{kubeadmin-password,kubeconfig)
+		****************************************
+		
+		# pwd
+		/home/lab/ocp4/auth
+		# cat kubeadmin-password ; echo 
+		# cat kubeconfig | grep server 
+		https://api.ocp4.example.com:6443 
+		# exit
+		$ oc login -u kubeadmin -p password-kubeadmin https://api.ocp4.example.com:6443 
+		$ oc whoami 
+		$ oc whoami -t 
+		$ oc whoami --loglevel 7 
+		/home/user/.kube/config   - [ all token stored here ]
+		$ oc get nodes 
+		$ oc version 
+		$ oc get clusterversion 
+		
+    Network details:-
+	     Name                 IP-Range           DomainName 
+	 Cluster Name            192.168.50.10       ocp4.example.com 
+	 Student Network         172.25.250.0/24     lab.example.com
+     Classroom Network       172.25.252.0/24     example.com 
+	 
+
+
+    Server details:-
+	  workstation.lab.example.com   [jump Server]
+	  bastion.lab.example.com       [Connect Student network to Classroom network]
+
+*********************************************************************************************
+Point-03# Authentication & Authorization part.
+- Authentication done via IdP (Identity Provider - LDAP, htpasswd, OIDC, RHSSO etc)
+- Once authentication done, oauth provide token based on authentication process.
+- Oauth version 2.x, is a inbuild service w.r.t OpenShift.
+FYI- Oauth communicate with IdP and do all "Authentication & Authorization part"
+
+$ oc get pods -n openshift-authentication (Ouath service - oc get oauth/cluster -o yaml).
+$ oc get pods -n openshift-apiserver (OpenShift level)
+$ oc get pods -n openshift-kube-apiserver (k8s level - kube-apiserver)
+$ oc get pods -n openshift-etcd 
+$ oc get pods -n openshift-controler-manager 
+$ oc get pods -n openshift-kube-scheduler 
+
+
+Task-01:-
+   userName             secretName      uploadFileName            IdentityProvider 
+user1-5/redhat123      sre-secret        htpasswd-sre-secret         IdP-htpasswd-sre-team 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
