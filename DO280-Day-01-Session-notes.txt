@@ -1,3 +1,12 @@
+
+Login to ROL - Red Hat Online Learning 
+https://rol.redhat.com  [user/password] - Red Hat Login ID 
+Check on "Catalog" and search for DO280 -> click on "Launch" -> Click on "Lab Environment" 
+- Create/start/stop/delete (1 hour - default)
+Auto-stop (adject)
+
+
+##################
 Point-1# 
 - Product Name - "Red Hat OpenShift".
 - Hybrid Cloud:-
