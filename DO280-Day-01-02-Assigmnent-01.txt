@@ -1,0 +1,32 @@
+Part 1-
+  UserName       IdentityProviderName,secretName 
+  user1-5   ( sre_team_identity_provider, sre-team-secret)
+  user6-10  ( devops_team_identity_provider, devops-team-secret)
+  user11-30 ( application-01_team_identity_provide, application-01-team-secret)
+  user31-50 ( application-02_team_identity_provider, application-02-team-secret)
+  user51-70 ( application-03_team_identity_provider, application-03-team-secret)
+  
+Part 2-
+  groups:-
+  sre_team_grp   - user1-5
+  devops_team_grp  - user6-10 
+  application-01_team_grp - user11-30
+  application-02_team_grp - user31-50
+  application-03_team_grp - user51-71
+
+Part 3-  
+  Setup and implement RBAC 
+  1) Assigned "cluster-admin" role to sre_team_grp
+  2) Delete kubeadmin account (delete kube:admin secret) - kube-system (namespace) 
+  3) self-provisioner remove from groups (system-authenticated-oauth)
+     NOte: By default all users part of this group (system-authenticated-oauth)
+  4) Assign "self-provisioner" to "devops_team_grp" 
+  5) Assigned "cluster-admin" role to user6 and user10 
+  6) Project creation.
+  
+Part 4-  
+  sre_team_project                 (cluster-admin) 
+  devops_team_project              (self-provisioner
+  application-01_team_project      (user11/12/13 - project admin, user14-25 - Edit, user26-30 View)
+  application-02_team_project      (user31/32/33 - project admin, user34-45 - Edit, user46-50 View)
+  application-03_team_project      (user51/52/53 - project admin, user54-65 - Edit, user66-70 View)
