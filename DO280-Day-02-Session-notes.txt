@@ -1,0 +1,111 @@
+https://github.com/cprakash2118/28June25-DO280
+
+#Quick Recap:-
+- Product - Red Hat OpenShift 
+- Classroom Env:-
+  ROL - https://rol.redhat.com [userName/Password]
+  Users Details:-
+  w.r.t VMs - student/student [sudo access ] ; root/redhat 
+  w.r.t OCP cluster - admin/redhatocp [cluster-admin access]; developer/developer - member only.
+  w.r.t OCP cluster - kubeadmin/kubeadmin-password-file [File located at utility - /home/lab/ocp4/auth]
+  
+  $ oc login -u admin -p redhatocp https://api.ocp4.example.com:6443 
+  FYI- 
+  - clusterName = ocp4 
+  - baseDomain  = example.com 
+  - API URL - https://api.clusterName.baseDomain:6443 
+  - Web Console - https://appName-namespace.apps.clusterName.baseDomain
+                - https://console-openshift-consoile.apps.ocp4.example.com 
+				
+- Added new users and authenticated one by one.
+user1-5/redhat123   - sre ; group=sre_grp  
+user6-10/redhat     - devops ; group=devops_grp 
+user11-50/redhat    - app     [user11-20] ; group=app_grp   [adding/deleting/updating-password]
+
+- adding users 
+- deleting users 
+- updating 
+- gather updated details (oc extract)
+
+Step-01:- Create user's details (userName & Password).
+$ htpasswd -c -b -B file-htpasswd-sre user1 redhat123 
+$ htpasswd    -b -B file-htpasswd-sre user2 redhat123 
+$ htpasswd    -b -B file-htpasswd-sre user3 redhat123
+$ htpasswd    -b -B file-htpasswd-sre user4 redhat123 
+$ htpasswd    -b -B file-htpasswd-sre user5 redhat123 
+
+$ cat file-htpasswd-sre
+
+
+Step-02:- Create secret (generic - from-file), w.r.t namespace="openshift-config".
+$ oc create secret generic sre-secret --from-file htpasswd=file-htpasswd-sre -n openshift-config
+$ oc get secret -n openshift-config 
+$ oc get secret sre-secret -n openshift-config
+$ oc get secret sre-secret -n openshift-config -o yaml/json 
+
+
+Step-03:- Update to Oauth service.
+$ oc get oauth cluster 
+$ oc get oauth cluster -o yaml > oauth.yaml   (recomm)
+or
+$ oc edit oauth cluster
+$ vim oauth.yaml 
+https://docs.redhat.com/en/documentation/openshift_container_platform/4.14/html-single/authentication_and_authorization/index
+
+
+- name: my_identity_provider
+  mappingMethod: claim 
+  type: HTPasswd
+    htpasswd:
+      fileData:
+        name: htpass-secret
+
+$ oc apply -f oauth.yaml 
+$ oc get pods -n openshift-authentication 
+
+$ oc login -u user1 -p redhat123 https://api.ocp4.example.com:6443 
+$ 
+
+
+###  X.509 client certificates
+
+
+Define and Apply Permissions with RBAC
+- Role-based Access Control (RBAC):-
+
+*************************
+Task-02:- Group Creation
+group=sre_grp 
+group=devops_grp 
+group=app_grp 
+
+Task-03:- Role assigment.
+sre_grp - "cluster-admin"
+devops_grp - "self-provisioner" - role , (user6-7 cluster-admin; part of sre_grp also). 
+
+Task-04:-
+namespace=ns-avl [user11-13 -admin ; user14-18 - edit; user-19-20 - view ; user51- cluster-reader]
+
+
+$ oc adm policy 
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
